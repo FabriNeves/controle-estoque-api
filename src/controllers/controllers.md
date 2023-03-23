@@ -1,0 +1,1 @@
+Nesta pasta ficam todos os arquivos que funcionam como controladores de dados.
