@@ -13,6 +13,31 @@ class produtosController {
         }
     }
 
+    // READ-QUERY
+    static async readQuery(req, res) {
+        try {
+            const itensPorPagina = Number(req.query.itensPorPagina) || 10; // Valor padrão é 10
+            const pagina = Number(req.query.pagina) || 1; // Valor padrão é 1
+            const offset = (pagina - 1) * itensPorPagina;
+            console.log(itensPorPagina,pagina,offset);
+            const produtos = await Produto.findAndCountAll({
+                where: { },
+                limit: itensPorPagina,
+                offset: offset
+            });
+            const totalItens = produtos.count;
+            const totalPaginas = Math.ceil(totalItens / itensPorPagina);
+            res.status(200).json({
+                produtos: produtos.rows,
+                paginaAtual: pagina,
+                totalPaginas: totalPaginas
+            });
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error);
+        }
+    }
+
     // READ-BY-ID
     static async readById(req, res) {
         const { id } = req.params;
@@ -39,6 +64,7 @@ class produtosController {
             res.status(500).send(error);
         }
     }
+
     // UPDATE
     static async update(req, res) {
         const { id } = req.params;
@@ -77,18 +103,18 @@ class produtosController {
     static async find(req, res) {
         const query = req.query;
         const objSQLQuery = {};
-        
+
         // Construção do Objeto de Procura.
         for (const key in query) {
             objSQLQuery[key] = {
-                
+
                 [Op.like]: `${query[key]}%`
             };
-        }       
+        }
 
         try {
             const produtos = await Produto.findAll({
-                where: objSQLQuery 
+                where: objSQLQuery
 
             });
             res.status(200).json(produtos);

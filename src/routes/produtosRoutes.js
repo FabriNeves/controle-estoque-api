@@ -9,7 +9,12 @@ produtosRouter.route(`/${nomeRota}`)
   .post(produtosController.create)
   .get(produtosController.read);
 
-  // /busca?escola=&nome=&idade=&genero=&situacaoFinal=
+//http://localhost:3000/cadastroProdutos/pagina?itensPorPagina=10&pagina=1
+produtosRouter.route(`/${nomeRota}/pagina`)
+  .get(produtosController.readQuery);
+
+// http://localhost:3000/cadastroProdutos/busca?nome=&marca=&qtd=
+
 produtosRouter.route(`/${nomeRota}/busca`)
   .get(produtosController.find);
 
