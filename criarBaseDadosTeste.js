@@ -18,8 +18,3 @@ listaJSON.forEach(async input =>{
    await Produto.create(input);
 });
 
-// const user1 = await User.create({
-//     username: "Nome",
-//     email: "email@mail.com",
-//     hash: "bedd5689jf2321aznfkk97rdfbmy"
-// });
