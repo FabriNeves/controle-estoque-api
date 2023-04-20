@@ -30,7 +30,7 @@ Para criar um banco de dados para teste execute o comando **"node criarBaseDados
 ## Rotas
 A API possui as seguintes rotas:
 
-### POST /produtos/cadastroProdutos
+### POST /cadastroProdutos
 Cria um novo produto.
 
 Exemplo de requisição:
