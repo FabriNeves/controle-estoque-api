@@ -20,7 +20,7 @@ Execute o comando **npm start** para rodar a aplicação.
 
 ## Banco de Dados 
 Para configurar corretamente o banco de dados é necessario alterar as variáveis no arquivo **src/config/config.js**.
-```
+```javascript
 const DB = "NomeDoBanco"; // somente letras e numeros 
 const usuario = "root";
 const senha = "123";
@@ -35,8 +35,8 @@ Cria um novo produto.
 
 Exemplo de requisição:
 
-```
-json
+```json
+
 {
   "nome": "Produto A",
   "marca": "Marca A",  
