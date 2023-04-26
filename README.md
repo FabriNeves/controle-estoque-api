@@ -61,8 +61,8 @@ Atualiza um produto existente.
 
 Exemplo de requisição:
 
-```
-json
+```json
+
 {
   "nome": "Produto B",
   "marca": "Marca B",  
