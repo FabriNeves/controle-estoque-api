@@ -10,18 +10,29 @@ const Produto = sequelize.define("produtosTable", {
         primaryKey: true
     },
     nome: {
-       type : Sequelize.STRING,
-       allowNull: false,       
+        type: Sequelize.STRING,
+        allowNull: false,
     },
-    marca:{
-        type : Sequelize.STRING,
-        allowNull: false,       
-     },
+    marca: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
     qtd: {
-        type : Sequelize.INTEGER,
-        allowNull: false,       
-     },
-})
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
+    min_qtd: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+    },
+    max_qtd: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 999
+    }
+});
+
 
 
 export default Produto;
