@@ -1,6 +1,6 @@
 import Produto from '../models/produtosModel.js';
 import { Op } from "sequelize";
-
+import { validate } from '../services/validate.js';
 class produtosController {
 
     // READ
@@ -19,9 +19,9 @@ class produtosController {
             const itensPorPagina = Number(req.query.itensPorPagina) || 10; // Valor padrão é 10
             const pagina = Number(req.query.pagina) || 1; // Valor padrão é 1
             const offset = (pagina - 1) * itensPorPagina;
-            console.log(itensPorPagina,pagina,offset);
+            console.log(itensPorPagina, pagina, offset);
             const produtos = await Produto.findAndCountAll({
-                where: { },
+                where: {},
                 limit: itensPorPagina,
                 offset: offset
             });
@@ -55,25 +55,46 @@ class produtosController {
 
     // CREATE
     static async create(req, res) {
-        const novoProduto = req.body;
-        console.log(req.body);
+        const { nome, marca, qtd } = req.body;
+
+        const produto = await Produto.findOne({ where: { nome } });
+        if (produto) {
+            return res.status(409).send("Produto já existe.");
+        } else if (Number(qtd) < 0) {
+            return res.status(409).send("Quantidada precisa ser maior que 0");
+        }
+
         try {
-            const produto = await Produto.create(novoProduto);
-            res.status(200).json(produto);
+            const novoProduto = { nome, marca, qtd };
+            const produtoCriado = await Produto.create(novoProduto);
+            res.status(200).json(produtoCriado);
         } catch (error) {
             res.status(500).send(error);
         }
     }
 
+
     // UPDATE
     static async update(req, res) {
         const { id } = req.params;
         const atualizacoes = req.body;
+        const { qtd } = atualizacoes;
+
+        if (qtd <= 0) {
+            return res.status(400).json({ error: 'A quantidade não pode ser menor ou igual a zero.' });
+        };
+
         try {
             const produto = await Produto.findOne({ where: { id } });
+
             if (produto) {
+                const validacao = validate(produto, qtd);
+                // if (validacao) {
+                //     return res.status(400).json(validacao);
+                // } else {
                 await produto.update(atualizacoes);
-                res.status(200).json(produto);
+                res.status(200).json({ produto, alerta: validacao });
+                // }
             } else {
                 res.status(404).send('Produto não encontrado.');
             }
