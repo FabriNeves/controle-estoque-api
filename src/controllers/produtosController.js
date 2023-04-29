@@ -80,8 +80,8 @@ class produtosController {
         const atualizacoes = req.body;
         const { qtd } = atualizacoes;
 
-        if (qtd <= 0) {
-            return res.status(400).json({ error: 'A quantidade não pode ser menor ou igual a zero.' });
+        if (qtd < 0) {
+            return res.status(400).json({ error: 'A quantidade não pode ser menor que zero.' });
         };
 
         try {
@@ -143,6 +143,22 @@ class produtosController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    static async listarProdutosComQuantidadeMinima(req, res) {
+        try {
+            const min_qtd = req.params.min_qtd;
+            const produtos = await Produto.findAll({ where: { qtd: { [Op.lt]: min_qtd } } });
+                //Op.lt é uma constante do Sequelize que representa o operador "menor que" (<)
+            if (produtos.length > 0) {
+                return res.status(200).json(produtos);
+            } else {
+                return res.status(404).json({ message: "Nenhum produto encontrado com quantidade mínima abaixo do limite." });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    }
+
 }
 
 export default produtosController;

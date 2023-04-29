@@ -1,7 +1,7 @@
 import sequelize from "./src/config/config.js";
 import Produto from "./src/models/produtosModel.js";
 
-import { listaJSON } from "./produtos.js";
+import { listaJSONplus  } from "./produtos.js";
 
 
 sequelize.authenticate().then(() => {
@@ -14,7 +14,7 @@ sequelize.authenticate().then(() => {
 
 await sequelize.sync({ force: true });
 
-listaJSON.forEach(async input =>{
+ listaJSONplus.forEach(async input =>{
    await Produto.create(input);
 });
 

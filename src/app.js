@@ -1,6 +1,7 @@
 import express from "express";
 import produtosRouter from "./routes/produtosRoutes.js";
 import cors from 'cors';
+import rotinaEstoque from "./routes/rotinaVerificacaoEstoque.js";
 
 
 
@@ -20,7 +21,7 @@ app.get("/",(req,res) => {
 
 // add rotas
 app.use(produtosRouter);
-
+app.use(rotinaEstoque);
 
 
 export default app;
