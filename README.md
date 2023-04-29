@@ -1,6 +1,8 @@
 # API de cadastro de produtos
 API desenvolvida em Node.js com Express e banco de dados MySQL, utilizando a biblioteca Sequelize para ORM.
 
+## CheckList
+
 ## Dependências
 ### Blibliotecas & FrameWorks
 - express
