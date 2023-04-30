@@ -1,6 +1,7 @@
 import Produto from '../models/produtosModel.js';
 import { Op } from "sequelize";
 import { validate } from '../services/validate.js';
+import Sequelize from 'sequelize';
 class produtosController {
 
     // READ
@@ -146,9 +147,10 @@ class produtosController {
 
     static async listarProdutosComQuantidadeMinima(req, res) {
         try {
-            const min_qtd = req.params.min_qtd;
-            const produtos = await Produto.findAll({ where: { qtd: { [Op.lt]: min_qtd } } });
-                //Op.lt é uma constante do Sequelize que representa o operador "menor que" (<)
+            const produtos = await Produto.findAll({
+                where: Sequelize.literal('qtd < min_qtd')
+            });
+
             if (produtos.length > 0) {
                 return res.status(200).json(produtos);
             } else {
@@ -158,7 +160,6 @@ class produtosController {
             return res.status(500).json({ message: error.message });
         }
     }
-
 }
 
 export default produtosController;

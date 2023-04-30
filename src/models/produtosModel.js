@@ -24,7 +24,7 @@ const Produto = sequelize.define("produtosTable", {
     min_qtd: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 10
+        defaultValue: 30
     },
     max_qtd: {
         type: Sequelize.INTEGER,

@@ -6,7 +6,7 @@ const rotinaEstoque = express.Router();
 
 const nomeRota = "produtosQuantidadeMinima";
 
-rotinaEstoque.route(`/${nomeRota}/:min_qtd`)  
+rotinaEstoque.route(`/${nomeRota}/`)  
   .get(produtosController.listarProdutosComQuantidadeMinima);
 
 

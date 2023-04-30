@@ -11,7 +11,7 @@ const sequelize = new Sequelize(DB, usuario, senha, {
 });
 
 
-let dbStatusCreate = true;
+let dbStatusCreate = false;
 console.log(dbStatusCreate);
 
 if (dbStatusCreate) {
