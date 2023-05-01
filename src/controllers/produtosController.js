@@ -145,6 +145,7 @@ class produtosController {
         }
     }
 
+    //Listar Protudos Abaixo da quantidade Mínima
     static async listarProdutosComQuantidadeMinima(req, res) {
         try {
             const produtos = await Produto.findAll({

@@ -76,3 +76,5 @@ Exemplo de requisição:
 ### DELETE /cadastroProdutos/:id
 Deleta um produto existente.
 
+### GET  /produtosQuantidadeMinima
+Retorna uma lista de produtos com quantidade abaixo do limite mínimo definido no cadastro do produto.
