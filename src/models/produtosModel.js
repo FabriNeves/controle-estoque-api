@@ -3,7 +3,7 @@ import sequelize from "../config/config.js";
 
 
 // Esquema Produtos 
-const Produto = sequelize.define("produtosTable", {
+const Produto = sequelize.define("produtos", {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,

@@ -42,7 +42,9 @@ Exemplo de requisição:
 {
   "nome": "Produto A",
   "marca": "Marca A",  
-  "qtd": 10
+  "qtd": 10,
+  "min_qtd" : 30,
+  "max_qtd" : 999
 }
 ```
 
@@ -64,11 +66,12 @@ Atualiza um produto existente.
 Exemplo de requisição:
 
 ```json
-
 {
   "nome": "Produto B",
   "marca": "Marca B",  
-  "qtd": 5
+  "qtd": 5,
+  "min_qtd" : 30,
+  "max_qtd" : 999
 }
 ```
 

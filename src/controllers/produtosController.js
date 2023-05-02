@@ -74,28 +74,21 @@ class produtosController {
         }
     }
 
-
-    // UPDATE
+    // UPDATE    
     static async update(req, res) {
         const { id } = req.params;
-        const atualizacoes = req.body;
-        const { qtd } = atualizacoes;
+        const { nome, marca, min_qtd, max_qtd } = req.body;
 
-        if (qtd < 0) {
-            return res.status(400).json({ error: 'A quantidade não pode ser menor que zero.' });
-        };
+        if (!nome && !marca && !min_qtd && !max_qtd) {
+            return res.status(400).send('Pelo menos um campo de nome, marca, min_qtd ou max_qtd é obrigatório para atualização.');
+        }
 
         try {
             const produto = await Produto.findOne({ where: { id } });
 
             if (produto) {
-                const validacao = validate(produto, qtd);
-                // if (validacao) {
-                //     return res.status(400).json(validacao);
-                // } else {
-                await produto.update(atualizacoes);
-                res.status(200).json({ produto, alerta: validacao });
-                // }
+                await produto.update({ nome, marca, min_qtd, max_qtd });
+                res.status(200).json(produto);
             } else {
                 res.status(404).send('Produto não encontrado.');
             }
@@ -103,6 +96,7 @@ class produtosController {
             res.status(500).send(error);
         }
     }
+
 
     // DELETE
     static async delete(req, res) {
