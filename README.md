@@ -1,7 +1,5 @@
 # API de cadastro de produtos
-API desenvolvida em Node.js com Express e banco de dados MySQL, utilizando a biblioteca Sequelize para ORM.
-
-## CheckList
+API desenvolvida em Node.js com Express e banco de dados MySQL, utilizando a biblioteca Sequelize para ORM. Permite o registro de entrada e saída de produtos, atualizando a quantidade total em estoque e registrando tambem as movimentações de produtos.
 
 ## Dependências
 ### Blibliotecas & FrameWorks
@@ -12,7 +10,6 @@ API desenvolvida em Node.js com Express e banco de dados MySQL, utilizando a bib
 
 ### Bando de dados
 - MySQL
-
   
 ## Instalação
 Clone este repositório.
@@ -47,15 +44,17 @@ Exemplo de requisição:
   "max_qtd" : 999
 }
 ```
+ <span style="color:orange">* Usando esse método automaticamente se registra a quantidade como entrada.</span>
+
 
 ### GET /cadastroProdutos
-Retorna uma lista de produtos.
+Retorna todos os produtos.
 
 ### GET /cadastroProdutos/pagina?itensPorPagina=10&pagina=1
 Retorna uma lista de produtos paginados. É possível passar os parâmetros **itensPorPagina** e **pagina** para definir a quantidade de itens por página e a página desejada.
 
-### GET /cadastroProdutos/busca?nome=&marca=&qtd=
-Retorna uma lista de produtos filtrados por **nome**, **marca** e **quantidade**. Passando os parâmetros **nome**, **marca** e **qtd** para realizar a busca.
+### GET /cadastroProdutos/busca?nome=&marca=
+Retorna uma lista de produtos filtrados por **nome**, **marca**, Passando os parâmetros **nome**, **marca** para realizar a busca.
 
 ### GET /cadastroProdutos/:id
 Retorna um produto específico pelo seu **ID**.
@@ -68,16 +67,39 @@ Exemplo de requisição:
 ```json
 {
   "nome": "Produto B",
-  "marca": "Marca B",  
-  "qtd": 5,
+  "marca": "Marca B",    
   "min_qtd" : 30,
   "max_qtd" : 999
 }
 ```
-
+<span style="color:orange">* Quantidade não pode ser atualizada por esta rota.</span>
 
 ### DELETE /cadastroProdutos/:id
 Deleta um produto existente.
 
+ <span style="color:orange">* Usando esse método automaticamente se registra toda a quantidade desse item como saída.</span>
+
 ### GET  /produtosQuantidadeMinima
 Retorna uma lista de produtos com quantidade abaixo do limite mínimo definido no cadastro do produto.
+
+### POST /fluxo_entrada/:id
+
+ Registra a entrada de um determinado produto no estoque. O parâmetro **:id** corresponde ao ID do produto que será atualizado. O corpo da requisição deve conter um objeto JSON com as chaves **qtd_in** (quantidade que será adicionada ao estoque) e **data** (data e hora da entrada no formato "YYYY-MM-DD HH:mm:ss").
+
+```json
+{     
+  "qtd_in" : 30,
+  "data" : "YYYY-MM-DD HH:mm:ss"
+}
+```
+
+### POST /fluxo_saida/:id
+
+Registra a saída de um determinado produto no estoque. O parâmetro **:id** corresponde ao ID do produto que será atualizado. O corpo da requisição deve conter um objeto JSON com as chaves **qtd_out** (quantidade que será retirada do estoque) e **data** (data e hora da saída no formato "YYYY-MM-DD HH:mm:ss").
+
+```json
+{     
+  "qtd_in" : 30,
+  "data" : "YYYY-MM-DD HH:mm:ss"
+}
+```
