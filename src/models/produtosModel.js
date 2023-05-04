@@ -20,6 +20,7 @@ const Produto = sequelize.define("produtos", {
     qtd: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        defaultValue: 0
     },
     min_qtd: {
         type: Sequelize.INTEGER,
