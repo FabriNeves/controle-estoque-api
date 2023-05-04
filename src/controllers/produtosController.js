@@ -1,7 +1,7 @@
 import Produto from '../models/produtosModel.js';
 import { Op } from "sequelize";
-import { validate } from '../services/validate.js';
 import Sequelize from 'sequelize';
+import controleFluxo from './fluxoController.js';
 class produtosController {
 
     // READ
@@ -56,9 +56,11 @@ class produtosController {
 
     // CREATE
     static async create(req, res) {
-        const { nome, marca, qtd } = req.body;
+        const novoProduto = req.body;
+        const { qtd, nome } = novoProduto;
 
         const produto = await Produto.findOne({ where: { nome } });
+
         if (produto) {
             return res.status(409).send("Produto já existe.");
         } else if (Number(qtd) < 0) {
@@ -66,8 +68,10 @@ class produtosController {
         }
 
         try {
-            const novoProduto = { nome, marca, qtd };
             const produtoCriado = await Produto.create(novoProduto);
+            if (qtd) {
+                await controleFluxo.entrada(produtoCriado,qtd);
+            }
             res.status(200).json(produtoCriado);
         } catch (error) {
             res.status(500).send(error);
@@ -103,9 +107,13 @@ class produtosController {
         const { id } = req.params;
         try {
             const produto = await Produto.findOne({ where: { id } });
+            const { qtd } = produto;
             if (produto) {
+                if (qtd) {
+                    await controleFluxo.saida(produto,qtd);
+                }
                 await produto.destroy();
-                res.send('Produto deletado. :' + JSON.stringify(produto));
+                res.json({message:'Produto_deletado',produto:JSON.stringify(produto)});
             } else {
                 res.status(404).send('Produto não encontrado.');
             }
