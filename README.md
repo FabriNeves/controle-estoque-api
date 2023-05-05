@@ -129,6 +129,6 @@ Registra a saída de um determinado produto no estoque. O parâmetro **:id** cor
 ### GET /fluxo
 
 Retorna uma lista de todas as movimentações registradas.
-### GET /fluxo/:id 
+### GET /fluxo/:produto_id 
 
 Retorna uma lista de movimentações de um produto específico com base no seu id.

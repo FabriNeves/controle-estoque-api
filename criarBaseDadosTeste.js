@@ -1,7 +1,7 @@
 import sequelize from "./src/config/config.js";
 import Produto from "./src/models/produtosModel.js";
 import Movimentacao from "./src/models/controleFluxoModel.js";
-
+import produtosController from "./src/controllers/produtosController.js";
 import { listaJSONplus } from "./produtos.js";
 
 
@@ -17,7 +17,7 @@ await sequelize.sync({ force: true });
 
 listaJSONplus.forEach(async input => {
 
-    const produto = await Produto.create(input);
+   const produto = await Produto.create(input);
     await Movimentacao.create({
         nome:produto.nome,
         tipo:"entrada",        
@@ -25,5 +25,6 @@ listaJSONplus.forEach(async input => {
         qtd: produto.qtd,
         data: new Date()
       })
+    
 });
 
