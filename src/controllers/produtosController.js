@@ -113,7 +113,7 @@ class produtosController {
                     await controleFluxo.saida(produto,qtd);
                 }
                 await produto.destroy();
-                res.json({message:'Produto_deletado',produto:JSON.stringify(produto)});
+                res.json({message:'Produto_deletado',produto:produto});
             } else {
                 res.status(404).send('Produto não encontrado.');
             }
