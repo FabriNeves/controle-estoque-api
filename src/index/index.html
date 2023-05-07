@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API de Estoque</title>
+    <style>
+        /* Table styles */
+        body {
+            max-width: 900px;
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            background-color: #1a1a1a;
+            color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+            color: #f2f2f2;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2c2c2c;
+        }
+
+        tr:nth-child(even) {
+            background-color: #2c2c2c;
+        }
+
+        /* Bold span styles */
+        td span {
+            font-weight: bold;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 600px) {
+
+            /* Hide table headers */
+            table th {
+                display: none;
+            }
+
+            /* Make each row a block element */
+            table tr {
+                display: block;
+                border-bottom: 1px solid #ddd;
+            }
+
+            /* Add row title to each cell */
+            table td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                display: block;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Bem-vindo à minha API de controle de estoque!</h1>
+        <p>Esta é uma API desenvolvida em Node.js com Express e banco de dados MySQL, utilizando a biblioteca Sequelize
+            para ORM. Ela permite o registro de entrada e saída de produtos, atualizando a quantidade total em estoque e
+            registrando também as movimentações de produtos.</p>
+        <p>Se você está interessado em dar uma olhada no código, pode encontrar o repositório no <a
+                href="https://github.com/FabriNeves/controle-estoque-api">GitHub</a>.</p>
+        <p>Sinta-se livre para explorar e contribuir para o desenvolvimento desta API!</p>
+    </header>
+    <table>
+        <tr>
+            <th>Método HTTP</th>
+            <th>Rota da API</th>
+            <th>Descrição</th>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/cadastroProdutos</td>
+            <td>Cria um novo produto.</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/cadastroProdutos</td>
+            <td>Retorna todos os produtos.</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/cadastroProdutos/pagina?itensPorPagina=10&pagina=1</td>
+            <td>Retorna uma lista de produtos paginados. É possível passar os parâmetros <span>itensPorPagina </span>e
+                <span>pagina </span>
+                para definir a quantidade de itens por página e a página desejada.
+            </td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/cadastroProdutos/busca?nome=&amp;marca=</td>
+            <td>Retorna uma lista de produtos filtrados por <span>nome </span>, <span>marca </span>. Passando os
+                parâmetros <span>nome </span>,
+                <span>marca </span> para realizar a busca.
+            </td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/cadastroProdutos/:id</td>
+            <td>Retorna um produto específico pelo seu <span>ID </span>.</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>/cadastroProdutos/:id</td>
+            <td>Atualiza um produto existente. Quantidade não pode ser atualizada por esta rota.</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/cadastroProdutos/:id</td>
+            <td>Deleta um produto existente. Usando esse método automaticamente registra toda a quantidade desse item
+                como saída.</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/produtosQuantidadeMinima</td>
+            <td>Retorna uma lista de produtos com quantidade abaixo do limite mínimo definido no cadastro do produto.
+            </td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/fluxo/entrada/:id</td>
+            <td>Registra a entrada de um determinado produto no estoque. O parâmetro <span>:id </span> corresponde ao ID
+                do produto que será atualizado. O corpo da requisição deve conter um objeto JSON com as chaves
+                <span>qtd_in</span> (quantidade que será adicionada ao estoque) e <span> data </span> (data e hora da
+                entrada no formato "YYYY-MM-DD HH:mm:ss").
+            </td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/fluxo/saida/:id</td>
+            <td>Registra a saída de um determinado produto no estoque. O parâmetro <span>:id </span> corresponde ao ID
+                do produto
+                que será atualizado. O corpo da requisição deve conter um objeto JSON com as chaves <span>qtd_out
+                </span>
+                (quantidade que será retirada do estoque) e <span>data </span> (data e hora da saída no formato
+                "YYYY-MM-DD
+                HH:mm:ss").</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/fluxo</td>
+            <td>Retorna uma lista de todas as movimentações registradas.</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/fluxo/:id</td>
+            <td>Retorna uma lista de movimentações de um produto específico com base no seu id.</td>
+        </tr>
+
+</body>
+
+</html>
