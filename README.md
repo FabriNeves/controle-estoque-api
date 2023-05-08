@@ -6,6 +6,8 @@ API desenvolvida em Node.js com Express e banco de dados MySQL, utilizando a bib
 Foram adicionadas novas funcionalidades à API. Para ter acesso às novidades, utilize o comando "git pull" em seu repositório. Entre as atualizações, destacam-se:
 - Registro de entrada e saída de mercadorias.
 - Inclusão de método e modelo no banco para definir valores máximos e mínimos de produtos no estoque.
+  
+  OBS: Como não foi criado um arquivo de migração, e este projeto esta em constante aprimoramento. Considere recriar as tabelas usando o comando **"node criarBaseDadosTeste.js"** , agora com 46 itens.
 
 
 ## 🏃‍♂️ Motivações e Objetivos 
