@@ -1,10 +1,17 @@
 # API de cadastro de produtos
 API desenvolvida em Node.js com Express e banco de dados MySQL, utilizando a biblioteca Sequelize para ORM. Permite o registro de entrada e saída de produtos, atualizando a quantidade total em estoque e registrando tambem as movimentações de produtos.
 
-## Motivações e Objetivos 
+## ♻ Atualização 
+
+Foram adicionadas novas funcionalidades à API. Para ter acesso às novidades, utilize o comando "git pull" em seu repositório. Entre as atualizações, destacam-se:
+- Registro de entrada e saída de mercadorias.
+- Inclusão de método e modelo no banco para definir valores máximos e mínimos de produtos no estoque.
+
+
+## 🏃‍♂️ Motivações e Objetivos 
 Esta API foi desenvolvida para atender as especificaçoes do cliente [Pedro Marins](https://github.com/pedromarins). Que tem como a demanda de funcionalidades :
 
-### Lista de funcionalidades
+### ⚙ Lista de funcionalidades
 
 #### Básico
 -   Ter uma lista de produtos com um identificador para cada item.
@@ -21,23 +28,23 @@ Esta API foi desenvolvida para atender as especificaçoes do cliente [Pedro Mari
 
 #### Extra
 - Armazenar cada transação na lista de produtos.
-## Dependências
+## 📚 Dependências
 ### Blibliotecas & FrameWorks
 - express
 - mysql2
 - sequelize
 - nodemon (somente para desenvolvimento)
 
-### Bando de dados
+### Banco de dados
 - MySQL
   
-## Instalação
+## 🏗 Instalação
 Clone este repositório.
 Na pasta raiz do projeto, execute o comando **npm install** para instalar as dependências.
 Configure as variáveis de ambiente no arquivo **config.js** com as informações do banco de dados.
 Execute o comando **npm start** para rodar a aplicação.
 
-## Banco de Dados 
+## 🎲 Banco de Dados 
 Para configurar corretamente o banco de dados é necessario alterar as variáveis no arquivo **src/config/config.js**.
 ```javascript
 const DB = "NomeDoBanco"; // somente letras e numeros 
@@ -46,7 +53,7 @@ const senha = "123";
 ```
 Para criar um banco de dados para teste execute o comando **"node criarBaseDadosTeste.js"** , para criar 46 itens. 
 
-## Rotas de produtos
+## 🔀 Rotas de produtos
 A API possui as seguintes rotas:
 
 ### POST /cadastroProdutos
@@ -55,7 +62,6 @@ Cria um novo produto.
 Exemplo de requisição:
 
 ```json
-
 {
   "nome": "Produto A",
   "marca": "Marca A",  
@@ -102,7 +108,7 @@ Deleta um produto existente.
 ### GET  /produtosQuantidadeMinima
 Retorna uma lista de produtos com quantidade abaixo do limite mínimo definido no cadastro do produto.
 
-## Rotas de entrada e saída de mercadorias.
+## 🛒 Rotas de entrada e saída de mercadorias.
 
 ### POST /fluxo/entrada/:id
 
@@ -132,3 +138,7 @@ Retorna uma lista de todas as movimentações registradas.
 ### GET /fluxo/:produto_id 
 
 Retorna uma lista de movimentações de um produto específico com base no seu id.
+
+## 💻 Postman
+
+Dentro da pasta **Postman Collection** está salvo o arquivo JSON usado para testar essa API usando o programa [Postman](https://www.postman.com/downloads/)
