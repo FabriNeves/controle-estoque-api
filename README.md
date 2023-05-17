@@ -10,9 +10,11 @@ Foram adicionadas novas funcionalidades à API. Para ter acesso às novidades, u
   OBS: Como não foi criado um arquivo de migração, e este projeto esta em constante aprimoramento. Considere recriar as tabelas usando o comando **"node criarBaseDadosTeste.js"** , agora com 46 itens.
 
 ## 🔝 Metas 
-[ ] Forçar um estilo de programação (Airbnb)
-[ ] Criar testes unitários.
-[ ] Add ao projeto o Sequelize CLI e adcionar um arquivo de migração.
+- [ ] Forçar um estilo de programação (Airbnb).
+
+- [ ] Criar testes unitários.
+
+- [ ] Add ao projeto o Sequelize CLI e adcionar um arquivo de migração.
 ## 🏃‍♂️ Motivações e Objetivos 
 Esta API foi desenvolvida para atender as especificações do cliente [Pedro Marins](https://github.com/pedromarins). Que tem como a demanda de funcionalidades :
 
