@@ -1,7 +1,6 @@
 import sequelize from "./src/config/config.js";
 import Produto from "./src/models/produtosModel.js";
 import Movimentacao from "./src/models/controleFluxoModel.js";
-import produtosController from "./src/controllers/produtosController.js";
 import { listaJSONplus } from "./produtos.js";
 
 
